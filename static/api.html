@@ -1,0 +1,563 @@
+
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+	<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Ting.js 基于express的server工程化组件。你可以用它，工程化你的express项目。使项目变得更可靠</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Free HTML5 Template by jq22.com" />
+	<meta name="keywords" content="Ting.js,express,工程,node搭建服务,javascript,张泰峰,配置server" />
+	<meta name="author" content="ting.top" />
+
+
+  	<!-- Facebook and Twitter integration -->
+	<meta property="og:title" content=""/>
+	<meta property="og:image" content=""/>
+	<meta property="og:url" content=""/>
+	<meta property="og:site_name" content=""/>
+	<meta property="og:description" content=""/>
+	<meta name="twitter:title" content="" />
+	<meta name="twitter:image" content="" />
+	<meta name="twitter:url" content="" />
+	<meta name="twitter:card" content="" />
+
+	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+	<link rel="shortcut icon" href="favicon.ico">
+	
+	<!-- Animate.css -->
+	<link rel="stylesheet" href="css/animate.css">
+	<!-- Icomoon Icon Fonts-->
+	<link rel="stylesheet" href="css/icomoon.css">
+	<!-- Simple Line Icons -->
+	<link rel="stylesheet" href="css/simple-line-icons.css">
+	<!-- Magnific Popup -->
+	<link rel="stylesheet" href="css/magnific-popup.css">
+	<!-- Bootstrap  -->
+	<link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/bootstrap-3.3.4.css">
+
+	<!-- 
+	Default Theme Style 
+	You can change the style.css (default color purple) to one of these styles
+	
+	1. pink.css
+	2. blue.css
+	3. turquoise.css
+	4. orange.css
+	5. lightblue.css
+	6. brown.css
+	7. green.css
+
+	-->
+	<link rel="stylesheet" href="css/style.css">
+
+	<!-- Styleswitcher ( This style is for demo purposes only, you may delete this anytime. ) -->
+	<link rel="stylesheet" id="theme-switch" href="css/style.css">
+	<!-- End demo purposes only -->
+
+
+	<style>
+	/* For demo purpose only */
+	
+	/* For Demo Purposes Only ( You can delete this anytime :-) */
+	#colour-variations {
+		padding: 10px;
+		-webkit-transition: 0.5s;
+	  	-o-transition: 0.5s;
+	  	transition: 0.5s;
+		width: 140px;
+		position: fixed;
+		left: 0;
+		top: 100px;
+		z-index: 999999;
+		background: #fff;
+		/*border-radius: 4px;*/
+		border-top-right-radius: 4px;
+		border-bottom-right-radius: 4px;
+		-webkit-box-shadow: 0 0 9px 0 rgba(0,0,0,.1);
+		-moz-box-shadow: 0 0 9px 0 rgba(0,0,0,.1);
+		-ms-box-shadow: 0 0 9px 0 rgba(0,0,0,.1);
+		box-shadow: 0 0 9px 0 rgba(0,0,0,.1);
+	}
+	#colour-variations.sleep {
+		margin-left: -140px;
+	}
+	#colour-variations h3 {
+		text-align: center;;
+		font-size: 11px;
+		letter-spacing: 2px;
+		text-transform: uppercase;
+		color: #777;
+		margin: 0 0 10px 0;
+		padding: 0;;
+	}
+	#colour-variations ul,
+	#colour-variations ul li {
+		padding: 0;
+		margin: 0;
+	}
+	#colour-variations li {
+		list-style: none;
+		display: block;
+		margin-bottom: 5px!important;
+		float: left;
+		width: 100%;
+	}
+	#colour-variations li a {
+		width: 100%;
+		position: relative;
+		display: block;
+		overflow: hidden;
+		-webkit-border-radius: 4px;
+		-moz-border-radius: 4px;
+		-ms-border-radius: 4px;
+		border-radius: 4px;
+		-webkit-transition: 0.4s;
+		-o-transition: 0.4s;
+		transition: 0.4s;
+	}
+	#colour-variations li a:hover {
+	  	opacity: .9;
+	}
+	#colour-variations li a > span {
+		width: 33.33%;
+		height: 20px;
+		float: left;
+		display: -moz-inline-stack;
+		display: inline-block;
+		zoom: 1;
+		*display: inline;
+	}
+	
+
+	.option-toggle {
+		position: absolute;
+		right: 0;
+		top: 0;
+		margin-top: 5px;
+		margin-right: -30px;
+		width: 30px;
+		height: 30px;
+		background: #f64662;
+		text-align: center;
+		border-top-right-radius: 4px;
+		border-bottom-right-radius: 4px;
+		color: #fff;
+		cursor: pointer;
+		-webkit-box-shadow: 0 0 9px 0 rgba(0,0,0,.1);
+		-moz-box-shadow: 0 0 9px 0 rgba(0,0,0,.1);
+		-ms-box-shadow: 0 0 9px 0 rgba(0,0,0,.1);
+		box-shadow: 0 0 9px 0 rgba(0,0,0,.1);
+	}
+	.option-toggle i {
+		top: 2px;
+		position: relative;
+	}
+	.option-toggle:hover, .option-toggle:focus, .option-toggle:active {
+		color:  #fff;
+		text-decoration: none;
+		outline: none;
+	}
+	html,body{
+		width: 100%;
+		height:100%;
+	}
+	header {
+    height: 60px !important;
+    position: fixed !important;
+    top:0 !important;
+    background: #3d6bc1;
+    margin: 0px;
+    margin-top: 0px !important;
+
+}
+.content{
+	position: fixed !important;
+	top:50px !important;
+}
+	</style>
+	<!-- End demo purposes only -->
+
+
+	<!-- Modernizr JS -->
+	<script src="js/modernizr-2.6.2.min.js"></script>
+	<!-- FOR IE9 below -->
+	<!--[if lt IE 9]>
+	<script src="js/respond.min.js"></script>
+	<![endif]-->
+
+	</head>
+	<body>
+	<textarea style="display:none;" id="API_json">
+			{
+				"pages":[
+					{
+						"brie":"Ting.js简述",
+						"desc":"Ting.js是一款基于express的server工程化组件，它的主要作用，在于简化express的较繁杂router操作，使nodejs的server端API变得更加友好。附加功能可以实时生成路由文档，使api请求一目了然，简洁代码的同时保持了express可扩展性能。",
+						"path":"",
+						"class":"jianshu",
+						"rules":{
+							"三大特性":[
+								{
+									"brie":"1.简化express的路由",
+									"desc":""
+								},
+								{
+									"brie":"2.使用es6的class语法接受请求，使工程更易于移植",
+									"desc":""
+								},
+								{
+									"brie":"3.配置即文档，根据package的版本生成文档",
+									"desc":""
+								}
+							]
+						}
+					},
+					{
+						"brie":"使用教程",
+						"desc":"",
+						"class":"jiaocheng",
+						"rules":{
+							"步骤":[
+								{
+									"brie":"开始之前",
+									"desc":"在一切开始之前，你需要具备express知识,另外，需要生成一份package.json。|br|准备就绪后,就开始吧！"
+								},
+								{
+									"brie":"Step 1:　下载express",
+									"desc":"你需要先下载express:|br|项目目录打开命令行运行 npm install express --save|br|"
+								},
+								{
+									"brie":"Step 2:　下载ting.js",
+									"desc":"你需要先下载express:|br|项目目录打开命令行运行 npm install ting.js --save|br|"
+								},
+								{
+									"brie":"Step 3:　创建index.js",
+									"desc":"入口文件",
+									"codeView":"\r\n\t\tconst path = require(\"path\");\r\n\t\t//引入express\r\n\t\tconst express = require(\"express\");\r\n\t\t//express_app\r\n\t\tvar app = express();\r\n\t\tvar ting = require(\"ting.js\");\r\n\t\t//定义routes\r\n\t\tvar routes = require(\"./routes\");\r\n\t\t//引入_package\r\n\t\tvar _package = require(\"./package.json\");\r\n\t\t\t//doc路径\r\n\t\t\t_package.doc.path = path.join(__dirname,_package.doc.path);\r\n\t\t//初始化\r\n\t\tvar ting_fn = function(init){\r\n\t\t\tinit(routes);\r\n\t\t}\r\n\t\t//生成路由\r\n\t\tting(app,ting_fn,_package);\r\n\r\n\t\t//监听\r\n\t\tapp.listen(8090,()=>{\r\n\t\t\tconsole.log(\"ting_server started 8090\");\r\n\t\t});\r\n"
+								},
+								{
+									"brie":"Step 4:　创建routes.js",
+									"desc":"配置routes规则",
+									"codeView":"\r\n\t//处理类\r\n\tvar Home = require(\"./home.class\");\r\n\t//定义规则\r\n\tmodule.exports = [\r\n\t\t\t{\r\n\t\t\t\tbrie:\"首页\",\r\n\t\t\t\tdesc:\"这是首页的整体说明\",\r\n\t\t\t\tpath:\"/\",\r\n\t\t\t\tclass:Home,\r\n\t\t\t\trules:{\r\n\t\t\t\t\tget:[\r\n\t\t\t\t\t\t{\r\n\t\t\t\t\t\t\tbrie:\"这是首页的get访问方法\",\r\n\t\t\t\t\t\t\tdesc:\"返回了hello world\",\r\n\t\t\t\t\t\t\tpath:\"/\",\r\n\t\t\t\t\t\t\tExamination:true,\t//开启代码视图\r\n\t\t\t\t\t\t\tcontroller:[\"getHome\"]\r\n\t\t\t\t\t\t}\r\n\t\t\t\t\t]\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t]\r\n"
+								},
+								{
+									"brie":"Step 5:　创建home.class.js",
+									"desc":"替代复杂的router，使用类文件作为请求入口",
+									"codeView":"\r\n\tclass Home{\r\n\t\tmain(){\r\n\t\t\t/**\r\n\t\t\t\tmain函数是每个类的入口函数， 它会在启动加载类时执行\r\n\t\t\t*/\r\n\t\t}\r\n\t\tgetHome(req,res,next){\r\n\t\t\tres.send(\"hello world\");\r\n\t\t}\r\n\t}\r\n\tmodule.exports = Home;\r\n"
+								},
+								{
+									"brie":"Step 6:　运行测试",
+									"desc":"项目目录打开命令行运行|br|node index|br|访问localhost:8090|br|你可以看到类Home调用了getHome，顺利返回hello world"
+								}
+							]
+						}
+					},
+					{
+						"brie":"配置routes",
+						"desc":"你可以使用配置文件，也可以直接写在入口文件中，最终这个文件会生成router挂载到app上.|br|",
+						"class":"routes",
+						"rules":{
+							"routes {Array}":[
+								{
+									"brie":"每一个数组项表示一个路由分支。",
+									"desc":"抽象express中的app.use()功能，指定的类将被转换成对应的router",
+									"codeView":"\r\n\tvar routes = [\r\n\t\t{\r\n\t\t\tbrie:\"简短描述\",\r\n\t\t\tdesc:\"具体的功能描述\",\r\n\t\t\tpath:\"/\", //路由地址\r\n\t\t\tclass:HomeClass, //类\r\n\t\t\trules:[] //分支规则 \r\n\t\t}\r\n\t]\r\n"
+								},
+								{
+									"brie":"routes[0].brie {String}",
+									"desc":"路由简述，必填项。简短描述这个路由分支的主题。"
+								},
+								{
+									"brie":"routes[0].desc {String}",
+									"desc":"具体的功能描述，必填项。"
+								},
+								{
+									"brie":"routes[0].path {String}",
+									"desc":"分支路由，必填项。app.use的第一个参数。"
+								},
+								{
+									"brie":"routes[0].class {class Function}",
+									"desc":"router处理class，必填项。详细说明见下文"
+								},
+								{
+									"brie":"routes[0].rules {Array or Object}",
+									"desc":"分之下的路由规则，可选项，但推荐在routes中写入，你也可以在class中定义。详见下文。"
+								}
+							]
+						}
+					},
+					{
+						"brie":"class",
+						"desc":"使用class定义server响应操作。它使用es6的class语法代替了相对不友好的router.get等语法。",
+						"class":"class",
+						"rules":{
+							"class":[
+								{
+									"brie":"es6语法定义router",
+									"desc":"",
+									"codeView":"\r\n\tclass Home{\r\n\t\tmain(){\r\n\t\t}\r\n\t\tgetHome(req,res,next){\r\n\t\t\tres.send(\"hello world\");\r\n\t\t}\r\n\t}\r\n\tmodule.exports = Home;\r\n}"
+								},
+								{
+									"brie":"main()",
+									"desc":"类入口，可选项,它在加载类时调用，你可以在这里指定rules，或者做一些其它的操作。"
+								},
+								{
+									"brie":"class",
+									"desc":"每一个class的方法都会接收router[method]的所有参数"
+								}
+							]
+						}
+					},
+					{
+						"brie":"rules",
+						"desc":"定义路由分支规则",
+						"class":"rules",
+						"rules":{
+							"在routes中定义":[
+								{
+									"brie":"rules",
+									"desc":"在routes中定义路由分支规则",
+									"codeView":"\r\n\t//处理类\r\n\tvar Home = require(\"./home.class\");\r\n\t//定义规则\r\n\tmodule.exports = [\r\n\t\t\t{\r\n\t\t\t\tbrie:\"首页\",\r\n\t\t\t\tdesc:\"这是首页的整体说明\",\r\n\t\t\t\tpath:\"/\",\r\n\t\t\t\tclass:Home,\r\n\t\t\t\trules:{   //对象\r\n\t\t\t\t\tget:[\t\r\n\t\t\t\t\t\t{\r\n\t\t\t\t\t\t\tbrie:\"这是首页的get访问方法\",\r\n\t\t\t\t\t\t\tdesc:\"返回了hello world\",\r\n\t\t\t\t\t\t\tpath:\"/\",\r\n\t\t\t\t\t\t\tExamination:true,\t// 开启代码视图\r\n\t\t\t\t\t\t\tcontroller:[\"getHome\"]\r\n\t\t\t\t\t\t}\r\n\t\t\t\t\t]\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t]\r\n"
+								}
+							],
+							"在main()中定义":[
+								{
+									"brie":"rules",
+									"desc":"在main()中定义路由分支规则",
+									"codeView":"\r\n\tclass Home{\r\n\t\tmain(){\r\n\t\t\t//在main中定义rules\r\n\t\t\tthis.rules = {\r\n\t\t\t\tget:[\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\tbrie:\"这是首页的get访问方法\",\r\n\t\t\t\t\t\tdesc:\"返回了hello world\",\r\n\t\t\t\t\t\tpath:\"/\",\r\n\t\t\t\t\t\tExamination:true,\t//开启代码视图\r\n\t\t\t\t\t\tcontroller:[\"getHome\"]\r\n\t\t\t\t\t}\r\n\t\t\t\t]\r\n\t\t\t}\r\n\t\t}\r\n\t\tgetHome(req,res,next){\r\n\t\t\tres.send(\"hello world\");\r\n\t\t}\r\n\t}\r\n\t\r\n"
+								}
+							],
+							"rules配置":[
+								{
+									"brie":"rules对象",
+									"desc":"rules对象定义了路由分支规则，对象的键名表示请求method|br|例如常见的get，post，delete，put等，值是一个数组，规定请求处理方法。这里我们以get方法示例",
+									"codeView":"\r\n\t{\r\n\t\t\t\t\r\n\t\t\t\trules:{  \r\n\t\t\t\t\tget:[ //method\t\r\n\t\t\t\t\t\t{\r\n\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t}\r\n\t\t\t\t\t]\r\n\t\t\t\t}\r\n\t\t\t}\r\n"
+								},
+								{
+									"brie":"rules.get.brie {String}",
+									"desc":"规则简述,必填项"
+								},
+								{
+									"brie":"rules.get.desc {String}",
+									"desc":"规则详细描述,必填项"
+								},
+								{
+									"brie":"rules.get.path {String}",
+									"desc":"规则路由，必填项，这个路由与routes.path形成组合，例如routes规定path：'/',这里规定为'/hello'则最后请求路径为:'/hello'，请注意这里不能与其他分支产生命名或路由冲突"
+								},
+								{
+									"brie":"rules.get.controller {Array}",
+									"desc":"控制响应方法，必填项。它有两个用法，如果数组项是函数引用，对应的路由会将请求分发到函数调用req,res等。如果数组项是字符串，那么将在类中寻找函数，找不到则抛出错误.",
+									"codeView":"\r\n\t{\r\n\t\trules:{  \r\n\t\t\tget:[ //method\t\r\n\t\t\t\t{\r\n\t\t\t\t\tbrie:\"\",\r\n\t\t\t\t\tdesc:\"\",\r\n\t\t\t\t\tpath:\"\",\r\n\t\t\t\t\tcontroller:[getfunc,\"getHome\"]\r\n\t\t\t\t}\r\n\t\t\t]\r\n\t\t}\r\n\t}\r\n"
+								},
+								{
+									"brie":"rules.get.Examination {Boolean}",
+									"desc":"是否开启代码视图，可选项。如果为true则生成的doc对象会有一个codeView的属性，它的值就是controller处理代码"
+								},
+								{
+									"brie":"rules.get.ver {Object}",
+									"desc":"rules请求参数验证,可选项。"
+								}
+							]
+						}
+					},
+					{
+						"brie":"rules.get.ver {Object}",
+						"desc":"它可以验证发来的请求参数，如果你是用的是body-perse，或者任意一中请求参数格式化中间件，都可以使用它验证参数的正确性",
+						"class":"ver",
+						"rules":{
+							"指定req.params验证":[
+								{
+									"brie":"代码示例",
+									"desc":"你可以使用正则验证，也可以使用function自定义规则",
+									"codeView":"\r\n\t{\r\n\t\trules:{  \r\n\t\t\tget:[ //method\t\r\n\t\t\t\t{\r\n\t\t\t\t\tbrie:\"\",\r\n\t\t\t\t\tdesc:\"\",\r\n\t\t\t\t\tpath:\"/\",\r\n\t\t\t\t\tcontroller:[getfunc,\"getHome\"],\r\n\t\t\t\t\tver:{\r\n\t\t\t\t\t\tparams:{\r\n\t\t\t\t\t\t\ta:/^test$/,\r\n\t\t\t\t\t\t\tb:function(value,params){\r\n\t\t\t\t\t\t\t\tif(value !== \"hello\"){\r\n\t\t\t\t\t\t\t\t\treturn false;\r\n\t\t\t\t\t\t\t\t}\r\n\t\t\t\t\t\t\t\treturn true;\r\n\t\t\t\t\t\t\t}\r\n\t\t\t\t\t\t}\r\n\t\t\t\t\t}\r\n\t\t\t\t}\r\n\t\t\t]\r\n\t\t}\r\n\t}\r\n"
+								},
+								{
+									"brie":"验证是否通过",
+									"desc":"验证不通过，请求参数req上名为_typeError的属性的值为true,或者是自定义的值，如果验证通过它的值是undefined。",
+									"codeView":"\r\n\tclass Home{\r\n\t\tmain(){\r\n\t\t\t\r\n\t\t}\r\n\t\tgetHome(req,res,next){\r\n\t\t\t//判断验证是否通过，不通过返回false\r\n\t\t\tif(req._typeError){\r\n\t\t\t\t//不通过\r\n\t\t\t\tres.send(\"false\");\r\n\t\t\t\treturn next();\r\n\t\t\t}\r\n\t\t\tres.send(\"hello world\");\r\n\t\t}\r\n\t}\r\n"
+								},
+								{
+									"brie":"最后",
+									"desc":"你可以验证所有在req上的值，headers、query、body、fields等"
+								}
+							]
+						}
+					},
+					{
+						"brie":"ting_init初始化函数",
+						"desc":"在一个routes定义好之后。你需要一个函数初始化router，然后调用ting()方法",
+						"class":"init",
+						"rules":{
+							"init":[
+								{
+									"brie":"",
+									"desc":"假设我们的routes已经配置好。",
+									"codeView":"\r\n\t\r\n\tvar routes = [\r\n\t\t//routes配置 ...\r\n\t]\r\n\t/************************一切配置都已准备好************************/\r\n\tvar ting_init = function(init){\r\n\t\tinit(routes);\r\n\t}\r\n\r\n}"
+								}
+							]
+						}
+					},
+					{
+						"brie":"ting(req,ting_init,package)",
+						"desc":"最后，调用ting方法生成router。对应的参数分别为|br|req:express()|br|ting_init:初始化函数|br|package:package.json的引用",
+						"class":"ting"
+					},
+					{
+						"brie":"doc生成",
+						"desc":"生成文档发生在应用启动时，如果配置了的话，生成文档内置了两个方法html、json，你也可以自定义自己的文档。",
+						"class":"doc_mr",
+						"rules":{
+							"配置":[
+								{
+									"brie":"在package中配置doc",
+									"desc":"",
+									"codeView":"\r\n\t//在page中配置doc\r\n\t{\r\n\t\t\"doc\":{\r\n\t\t    \"path\": \"./doc/\", //必填项\r\n\t\t    \"files\": [  //必填项，可为空\r\n\t\t      \"html\",\t\t\r\n\t\t      \"json\",\r\n\t\t      \"test\"\r\n\t\t    ]\r\n\t\t  }\r\n\t}\r\n\t"
+								},
+								{
+									"brie":"path",
+									"desc":"参数由于json限制，需要在引用package后转换成绝对路径，当然如果你直接填绝对路径就不需要了",
+									"codeView":"\r\n\t//引入_package\r\nvar _package = require(\"./package.json\");\r\n\r\n\t_package.doc.path = path.join(__dirname,_package.doc.path);\r\n"
+
+								}
+							],
+							"html":[{
+								"brie":"生成html文档",
+								"desc":"将在doc.path指定的路径生成文档，这个文档的样式与本api一致，源码将在后面给出。"
+							}],
+							"json":[{
+								"brie":"生成json文档",
+								"desc":"将在doc.path指定的路径生成文档,这是一个json文件"
+							}],
+							"自定义文档":[{
+								"brie":"你可以自定义文档",
+								"desc":"由于json限制，需要在引用package后加载，这里要注意的是，定义之后，你还需要在path的files中配置对应的名称，比如下面这个test。",
+								"codeView":"\r\n//引入_package\r\nvar _package = require(\"./package.json\");\r\n\t_package.doc.addFiles = {\r\n\t\ttest:function(doc,opt){\r\n\t\t\t//返回doc对象\r\n\t\t\tconsole.log(doc);\r\n\t\t\t\r\n\t\t}\r\n\t"
+							}]
+
+						}
+					},
+					{
+						"brie":"扩展",
+						"desc":"ting.js用法扩展",
+						"class":"kuozhan",
+						"rules":{
+							"多人开发":[
+								{
+									"brie":"利用router配置文件的机制",
+									"desc":"你可以将router配置文件作为分发配置，|br|开发a负责分支/page下的页面。|br|开发b负责分支/hello下的页面|br|分别开辟两份class分支。开发完成后再合并。"
+								}
+							],
+							"工具类":[
+								{
+									"brie":"class的存在引发了更多可能",
+									"desc":"1.extends关键字可以实现继承|br|2.通过继承可以实现工具类。",
+									"codeView":"\r\n\tclass Util{\r\n\t\tprint(text){\r\n\t\t\tconsole.log(text);\r\n\t\t}\r\n\t}\r\n\r\n\tclass Home extends Util{\r\n\t\tgetHome(req,res,next){\r\n\t\t\tthis.print(\"hello\");\r\n\t\t}\r\n\t}\r\n\tnew Home().getHome();\r\n"
+								}
+							]
+						}
+
+					}
+				]
+			}
+		</textarea>
+	<header role="banner" id="fh5co-header">
+			<div class="container">
+				<!-- <div class="row"> -->
+			    <nav class="navbar navbar-default">
+		        <div class="navbar-header">
+		        	<!-- Mobile Toggle Menu Button -->
+					<a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"><i></i></a>
+		         <a class="navbar-brand" href="index.html" style="display:none"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEYAAAA1CAYAAAD8mJ3rAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA3FpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDE0IDc5LjE1MTQ4MSwgMjAxMy8wMy8xMy0xMjowOToxNSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDplMTJiMmU2Mi1iYmEwLTgwNDAtYTA1Zi00MzNiYjM5MmY5MTQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NTMyMTU2M0Q2REMyMTFFN0E0QjlBOEYwQjhBN0MzMEMiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NTMyMTU2M0M2REMyMTFFN0E0QjlBOEYwQjhBN0MzMEMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChXaW5kb3dzKSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjYxMmZiZTE5LWVlODktY2M0ZS1iMTU2LTRiZTU5ZGEzOGFlYyIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDplMTJiMmU2Mi1iYmEwLTgwNDAtYTA1Zi00MzNiYjM5MmY5MTQiLz4gPC9y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"/></a> 
+		        </div>
+		        <div id="navbar" class="navbar-collapse collapse">
+		          <ul class="nav navbar-nav navbar-right">
+		            <li><a target="_blank" href="index.html"><span>首页</span></a></li>
+		            <li target="_blank" class="active"><a href="api.html"><span>API</span></a></li>
+		            <li><a target="_blank" href="ziyuan.html"><span>资源</span></a></li>
+		          </ul>
+		        </div>
+			    </nav>
+			  <!-- </div> -->
+		  </div>
+	</header>
+		<div class="content"></div>
+	
+	
+
+	<footer id="footer" role="contentinfo">
+		<a href="#" class="gotop js-gotop"><i class="icon-arrow-up2"></i></a>
+		<div class="container">
+			<div class="">
+				<div class="col-md-12 text-center">
+					<p>&copy; ©2017 Ting.top <br>@Zhangtaifeng </p>
+					
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12 text-center">
+					<ul class="social social-circle">
+						<li><a target="_blank" href="https://github.com/294678380/Ting.js"><i class="icon-github"></i></a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</footer>
+	
+	
+	<!-- For demo purposes Only ( You may delete this anytime :-) -->
+	<div id="colour-variations">
+		<a class="option-toggle"><i class="icon-gear"></i></a>
+		<h3>赞助</h3>
+		
+	</div>
+	<!-- End demo purposes only -->
+
+	<script src="js/api.js"></script>
+	<!-- jQuery -->
+	<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+	<!-- jQuery Easing -->
+	<script src="js/jquery.easing.1.3.js"></script>
+	<!-- Bootstrap -->
+	<script src="http://www.jq22.com/jquery/bootstrap-3.3.4.js"></script>
+	<!-- Waypoints -->
+	<script src="js/jquery.waypoints.min.js"></script>
+	<!-- Stellar Parallax -->
+	<script src="js/jquery.stellar.min.js"></script>
+	<!-- Counter -->
+	<script src="js/jquery.countTo.js"></script>
+	<!-- Magnific Popup -->
+	<script src="js/jquery.magnific-popup.min.js"></script>
+	<script src="js/magnific-popup-options.js"></script>
+	<!-- Google Map -->
+
+
+	<!-- For demo purposes only styleswitcher ( You may delete this anytime ) -->
+	<script src="js/jquery.style.switcher.js"></script>
+	<script>
+		$(function(){
+			$('#colour-variations ul').styleSwitcher({
+				defaultThemeId: 'theme-switch',
+				hasPreview: false,
+				cookie: {
+		          	expires: 30,
+		          	isManagingLoad: true
+		      	}
+			});	
+			$('.option-toggle').click(function() {
+				$('#colour-variations').toggleClass('sleep');
+			});
+		});
+	</script>
+	<!-- End demo purposes only -->
+
+	<!-- Main JS (Do not remove) -->
+	<script src="js/main.js"></script>
+
+	</body>
+</html>
+
